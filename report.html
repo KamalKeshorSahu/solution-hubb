@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Solution Hubb – Fortune Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #4a148c;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    .report {
+      background: white;
+      margin: 15px;
+      padding: 15px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h2 {
+      color: #4a148c;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      margin-top: 15px;
+      background: #4a148c;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #eee;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<script>
+  if (localStorage.getItem("admin") !== "yes") {
+    window.location.href = "login.html";
+  }
+</script>
+
+<header>
+  <h1>Solution Hubb</h1>
+  <p>Numerology Fortune Report</p>
+</header>
+
+<div class="report">
+
+  <h2>व्यक्तिगत विवरण</h2>
+  <p><b>नाम:</b> <span id="r_name"></span></p>
+  <p><b>जन्म तिथि:</b> <span id="r_dob"></span></p>
+
+  <h2>मूलांक</h2>
+  <p><span id="r_mulank"></span></p>
+
+  <h2>भाग्यांक</h2>
+  <p><span id="r_bhagyank"></span></p>
+
+  <h2>संक्षिप्त निष्कर्ष</h2>
+  <p>
+    यह रिपोर्ट आपके जन्म तिथि और नाम के आधार पर बनाई गई है।
+    इसका उद्देश्य आपको आत्म-समझ और मार्गदर्शन प्रदान करना है।
+  </p>
+
+  <button onclick="goBack()">⬅️ Back</button>
+
+</div>
+
+<footer>
+  <p>© 2026 Solution Hubb</p>
+</footer>
+
+<script>
+  document.getElementById("r_name").innerText =
+    localStorage.getItem("r_name") || "";
+
+  document.getElementById("r_dob").innerText =
+    localStorage.getItem("r_dob") || "";
+
+  document.getElementById("r_mulank").innerText =
+    localStorage.getItem("r_mulank") || "";
+
+  document.getElementById("r_bhagyank").innerText =
+    localStorage.getItem("r_bhagyank") || "";
+
+  function goBack() {
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
