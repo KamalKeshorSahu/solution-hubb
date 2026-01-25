@@ -1,59 +1,110 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>Basic Numerology – Solution Hub</title>
+<style>
+body{font-family:Arial;background:#f2f2f2;}
+.container{
+  max-width:850px;margin:20px auto;
+  background:#fff6d5;padding:20px;
+  border:3px solid #d4af37;
+}
+h2{text-align:center;}
+input{width:100%;padding:10px;margin:6px 0;}
+table{width:100%;border-collapse:collapse;margin-top:12px;}
+td{border:1px solid #d4af37;padding:8px;}
+.left{width:45%;font-weight:bold;}
+.section{margin-top:20px;font-size:18px;text-align:center;font-weight:bold;}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>Basic Numerology</h2>
+
+<label>नाम</label>
+<input type="text" id="name" oninput="generate()">
+
+<label>जन्म की तारीख</label>
+<input type="date" id="dob" oninput="generate()">
+
+<div class="section">आपकी भाग्यशाली चीजें</div>
+<table>
+<tr><td class="left">नाम</td><td id="oName"></td></tr>
+<tr><td class="left">नाम संख्या</td><td id="nameNo"></td></tr>
+<tr><td class="left">जन्म की तारीख</td><td id="oDob"></td></tr>
+<tr><td class="left">मूलांक</td><td id="mulank"></td></tr>
+<tr><td class="left">मूलांक स्वामी ग्रह</td><td id="mulankLord"></td></tr>
+<tr><td class="left">भाग्यांक</td><td id="bhagyank"></td></tr>
+<tr><td class="left">भाग्यांक स्वामी ग्रह</td><td id="bhagyankLord"></td></tr>
+</table>
+
+<div class="section">अनुकूल उपाय</div>
+<table>
+<tr><td class="left">जिन नंबरों से बचना चाहिए</td><td id="avoid"></td></tr>
+<tr><td class="left">भाग्यशाली रंग</td><td id="color"></td></tr>
+<tr><td class="left">भाग्यशाली तारीखें</td><td id="dates"></td></tr>
+<tr><td class="left">भाग्यशाली वर्ष</td><td id="years"></td></tr>
+<tr><td class="left">सफलता संख्या</td><td id="success"></td></tr>
+<tr><td class="left">Lucky Rudraksh</td><td id="rudraksh"></td></tr>
+<tr><td class="left">भाग्यशाली कंगन</td><td id="bracelet"></td></tr>
+<tr><td class="left">भाग्यशाली यंत्र</td><td id="yantra"></td></tr>
+<tr><td class="left">अनुकूल मंत्र</td><td id="mantra"></td></tr>
+</table>
+</div>
+
 <script>
-const numerologyData = {
-  6: {
-    avoid: "3, 2, 9, 4, 6, 7, 8",
-    color: "Blue, Grey",
-    dates: "3rd, 12th, 21st, 22nd, 23rd",
-    years: "13th, 22nd, 31st, 40th, 49th, 58th, 67th",
-    success: "6",
-    rudraksh: "3 Mukhi",
-    bracelet: "Golden Obsidian, Bloodstone",
-    yantra: "Rahu Yantra",
-    mantra: "Om Bhram Bhreem Bhroum Sah Rahave Namaha"
-  },
-  1: {
-    avoid: "8",
-    color: "Red, Orange",
-    dates: "1st, 10th, 19th, 28th",
-    years: "19th, 28th, 37th, 46th",
-    success: "1",
-    rudraksh: "1 Mukhi",
-    bracelet: "Ruby",
-    yantra: "Surya Yantra",
-    mantra: "Om Ghrini Surya Namah"
-  }
+function single(n){while(n>9){n=n.toString().split('').reduce((a,b)=>a+ +b,0);}return n;}
+function nameNumber(name){
+ let map={A:1,J:1,S:1,B:2,K:2,T:2,C:3,L:3,U:3,D:4,M:4,V:4,
+ E:5,N:5,W:5,F:6,O:6,X:6,G:7,P:7,Y:7,H:8,Q:8,Z:8,I:9,R:9};
+ let sum=0;name.toUpperCase().replace(/[^A-Z]/g,'')
+ .split('').forEach(c=>sum+=map[c]||0);
+ return single(sum);
+}
+
+/* 🔢 COMPLETE MULANK DATA 1–9 */
+const N={
+1:{lord:"Sun",avoid:"8",color:"Red, Orange",dates:"1,10,19,28",years:"1,10,19",success:"1",rudraksh:"1 Mukhi",bracelet:"Ruby",yantra:"Surya Yantra",mantra:"Om Ghrini Suryaya Namah"},
+2:{lord:"Moon",avoid:"8",color:"White",dates:"2,11,20,29",years:"2,11,20",success:"2",rudraksh:"2 Mukhi",bracelet:"Pearl",yantra:"Chandra Yantra",mantra:"Om Som Somaya Namah"},
+3:{lord:"Jupiter",avoid:"6",color:"Yellow",dates:"3,12,21,30",years:"3,12,21",success:"3",rudraksh:"3 Mukhi",bracelet:"Yellow Sapphire",yantra:"Guru Yantra",mantra:"Om Gurave Namah"},
+4:{lord:"Rahu",avoid:"3,2,9,4,6,7,8",color:"Blue, Grey",dates:"3,12,21,22,23",years:"13,22,31,40,49,58,67",success:"6",rudraksh:"3 Mukhi",bracelet:"Golden Obsidian, Bloodstone",yantra:"Rahu Yantra",mantra:"Om Bhram Bhreem Bhroum Sah Rahave Namaha"},
+5:{lord:"Mercury",avoid:"4",color:"Green",dates:"5,14,23",years:"5,14,23",success:"5",rudraksh:"5 Mukhi",bracelet:"Emerald",yantra:"Budh Yantra",mantra:"Om Bum Budhaya Namah"},
+6:{lord:"Venus",avoid:"3,9",color:"Pink, White",dates:"6,15,24",years:"6,15,24",success:"6",rudraksh:"6 Mukhi",bracelet:"Diamond",yantra:"Shukra Yantra",mantra:"Om Shukraya Namah"},
+7:{lord:"Ketu",avoid:"8",color:"Grey",dates:"7,16,25",years:"7,16,25",success:"7",rudraksh:"7 Mukhi",bracelet:"Cat Eye",yantra:"Ketu Yantra",mantra:"Om Ketave Namah"},
+8:{lord:"Saturn",avoid:"4",color:"Black, Blue",dates:"8,17,26",years:"8,17,26",success:"8",rudraksh:"8 Mukhi",bracelet:"Blue Sapphire",yantra:"Shani Yantra",mantra:"Om Sham Shanicharaya Namah"},
+9:{lord:"Mars",avoid:"6",color:"Red",dates:"9,18,27",years:"9,18,27",success:"9",rudraksh:"9 Mukhi",bracelet:"Red Coral",yantra:"Mangal Yantra",mantra:"Om Kram Kreem Kroum Sah Bhaumaya Namah"}
 };
 
-function generate() {
-  let dob = document.getElementById("dob").value;
-  if (!dob) {
-    alert("Date of Birth डालो");
-    return;
-  }
+function generate(){
+ let name=document.getElementById("name").value;
+ let dob=document.getElementById("dob").value;
+ if(!dob) return;
 
-  let day = parseInt(dob.split("-")[2]);
-  let mulank = day % 9;
-  if (mulank === 0) mulank = 9;
+ let d=Number(dob.split("-")[2]);
+ let mul=single(d);
+ let bhag=single(dob.replaceAll("-","").split('').reduce((a,b)=>a+ +b,0));
 
-  let data = numerologyData[mulank];
-  if (!data) {
-    alert("Is Mulank ka data nahi hai");
-    return;
-  }
+ let data=N[mul];
+ document.getElementById("oName").innerText=name;
+ document.getElementById("nameNo").innerText=name?nameNumber(name):"";
+ document.getElementById("oDob").innerText=dob.split("-").reverse().join("/");
+ document.getElementById("mulank").innerText=mul;
+ document.getElementById("mulankLord").innerText=data.lord;
+ document.getElementById("bhagyank").innerText=bhag;
+ document.getElementById("bhagyankLord").innerText=N[bhag].lord;
 
-  document.getElementById("mulank").innerText = mulank;
-  document.getElementById("bhagyank").innerText = mulank;
-
-  document.getElementById("avoid").innerText = data.avoid;
-  document.getElementById("color").innerText = data.color;
-  document.getElementById("dates").innerText = data.dates;
-  document.getElementById("years").innerText = data.years;
-  document.getElementById("success").innerText = data.success;
-  document.getElementById("rudraksh").innerText = data.rudraksh;
-  document.getElementById("bracelet").innerText = data.bracelet;
-  document.getElementById("yantra").innerText = data.yantra;
-  document.getElementById("mantra").innerText = data.mantra;
-
-  document.getElementById("result").style.display = "block";
+ document.getElementById("avoid").innerText=data.avoid;
+ document.getElementById("color").innerText=data.color;
+ document.getElementById("dates").innerText=data.dates;
+ document.getElementById("years").innerText=data.years;
+ document.getElementById("success").innerText=data.success;
+ document.getElementById("rudraksh").innerText=data.rudraksh;
+ document.getElementById("bracelet").innerText=data.bracelet;
+ document.getElementById("yantra").innerText=data.yantra;
+ document.getElementById("mantra").innerText=data.mantra;
 }
 </script>
+</body>
+</html>
