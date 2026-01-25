@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Solution Hubb – Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f4f4f4;
+    }
+    header{
+      background:#5b1aa8;
+      color:#fff;
+      text-align:center;
+      padding:20px;
+    }
+    .container{
+      padding:20px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:15px;
+    }
+    .card{
+      background:#fff;
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      text-align:center;
+      cursor:pointer;
+      font-size:17px;
+      font-weight:bold;
+      color:#5b1aa8;
+      transition:0.2s;
+    }
+    .card:hover{
+      background:#efe6ff;
+      transform:scale(1.02);
+    }
+    footer{
+      text-align:center;
+      padding:12px;
+      font-size:14px;
+      color:#777;
+    }
+  </style>
+</head>
+
+<body>
+
+<script>
+  // Login Protection
+  if(localStorage.getItem("admin") !== "yes"){
+    window.location.href = "login.html";
+  }
+</script>
+
+<header>
+  <h1>Solution Hubb</h1>
+  <p>Numerology Control Panel</p>
+</header>
+
+<div class="container">
+
+  <div class="card" onclick="go('basic/index.html')">
+    🔢 Basic Numerology
+  </div>
+
+  <div class="card" onclick="go('grid/index.html')">
+    🧩 Lo Shu Grid Analysis
+  </div>
+
+  <div class="card" onclick="go('advance/index.html')">
+    ✨ Advance Numerology
+  </div>
+
+  <div class="card" onclick="go('name/index.html')">
+    🔠 Name Numerology
+  </div>
+
+  <div class="card" onclick="go('signature/index.html')">
+    ✍️ Signature Analysis
+  </div>
+
+  <div class="card" onclick="go('all-reports/index.html')">
+    📚 All Numerology Reports
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Solution Hubb
+</footer>
+
+<script>
+  function go(path){
+    window.location.href = path;
+  }
+</script>
+
+</body>
+</html>
