@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>Solution Hub – Basic Numerology</title>
+<style>
+body{
+  font-family: Arial;
+  background:#f5f0e6;
+  padding:20px;
+}
+.box{
+  max-width:900px;
+  background:#fff;
+  margin:auto;
+  padding:20px;
+  box-shadow:0 0 10px #aaa;
+}
+h2{text-align:center;color:#5a3b1e}
+input,button{
+  padding:10px;
+  width:100%;
+  margin-top:10px;
+}
+button{
+  background:#7b4a12;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+td,th{
+  border:1px solid #c9a15a;
+  padding:8px;
+}
+th{background:#f1dfb6}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+  margin-top:10px;
+}
+.grid div{
+  border:1px solid #333;
+  min-height:40px;
+  text-align:center;
+  padding:8px;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+<h2>Basic Numerology – Solution Hub</h2>
+
+<label>Date of Birth</label>
+<input type="date" id="dob">
+<button onclick="calculate()">Calculate</button>
+
+<div id="output"></div>
+
+<button onclick="download()">⬇ Download Report</button>
+</div>
+
+<script>
+function singleDigit(n){
+  while(n>9){
+    n = n.toString().split('').reduce((a,b)=>a+Number(b),0);
+  }
+  return n;
+}
+
+function calculate(){
+  let dob = document.getElementById("dob").value;
+  if(!dob){ alert("DOB डालें"); return; }
+
+  let d = new Date(dob);
+  let day = d.getDate();
+  let month = d.getMonth()+1;
+  let year = d.getFullYear();
+
+  let mulank = singleDigit(day);
+  let bhagyank = singleDigit(
+    (day+""+month+""+year).split('').reduce((a,b)=>a+Number(b),0)
+  );
+
+  let digits = (day+""+month+""+year).split("");
+
+  let grid = {1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[]};
+  digits.forEach(n=>{ if(grid[n]) grid[n].push(n); });
+
+  document.getElementById("output").innerHTML = `
+  <table>
+    <tr><th>विवरण</th><th>परिणाम</th></tr>
+    <tr><td>मूलांक (Mulank)</td><td>${mulank}</td></tr>
+    <tr><td>भाग्यांक (Bhagyank)</td><td>${bhagyank}</td></tr>
+  </table>
+
+  <h3>Lo Shu Grid</h3>
+  <div class="grid">
+    <div>${grid[4].join("")}</div>
+    <div>${grid[9].join("")}</div>
+    <div>${grid[2].join("")}</div>
+
+    <div>${grid[3].join("")}</div>
+    <div>${grid[5].join("")}</div>
+    <div>${grid[7].join("")}</div>
+
+    <div>${grid[8].join("")}</div>
+    <div>${grid[1].join("")}</div>
+    <div>${grid[6].join("")}</div>
+  </div>
+
+  <h3>Plane Summary</h3>
+  <table>
+    <tr><th>Plane</th><th>स्थिति</th></tr>
+    <tr><td>Mind (4-9-2)</td><td>${(grid[4].length||grid[9].length||grid[2].length)?"Active":"Missing"}</td></tr>
+    <tr><td>Heart (3-5-7)</td><td>${(grid[3].length||grid[5].length||grid[7].length)?"Active":"Missing"}</td></tr>
+    <tr><td>Practical (8-1-6)</td><td>${(grid[8].length||grid[1].length||grid[6].length)?"Active":"Missing"}</td></tr>
+    <tr><td>Vision (4-3-8)</td><td>${(grid[4].length||grid[3].length||grid[8].length)?"Active":"Missing"}</td></tr>
+    <tr><td>Will (9-5-1)</td><td>${(grid[9].length||grid[5].length||grid[1].length)?"Active":"Missing"}</td></tr>
+    <tr><td>Action (2-7-6)</td><td>${(grid[2].length||grid[7].length||grid[6].length)?"Active":"Missing"}</td></tr>
+  </table>
+  `;
+}
+
+function download(){
+  let data = document.getElementById("output").innerHTML;
+  let blob = new Blob([data],{type:"text/html"});
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Numerology_Report.html";
+  a.click();
+}
+</script>
+</body>
+</html>
