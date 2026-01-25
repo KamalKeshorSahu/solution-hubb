@@ -3,15 +3,14 @@ const numerologyData = {
   6: {
     avoid: "3, 2, 9, 4, 6, 7, 8",
     color: "Blue, Grey",
-    dates: "3rd, 12th, 21st, 22nd, 23rd of any month",
+    dates: "3rd, 12th, 21st, 22nd, 23rd",
     years: "13th, 22nd, 31st, 40th, 49th, 58th, 67th",
     success: "6",
     rudraksh: "3 Mukhi",
-    bracelet: "Golden Obsidian Bracelet, Bloodstone",
+    bracelet: "Golden Obsidian, Bloodstone",
     yantra: "Rahu Yantra",
     mantra: "Om Bhram Bhreem Bhroum Sah Rahave Namaha"
   },
-
   1: {
     avoid: "8",
     color: "Red, Orange",
@@ -23,7 +22,38 @@ const numerologyData = {
     yantra: "Surya Yantra",
     mantra: "Om Ghrini Surya Namah"
   }
-
-  // आगे बाकी Mulank भी ऐसे add होंगे
 };
+
+function generate() {
+  let dob = document.getElementById("dob").value;
+  if (!dob) {
+    alert("Date of Birth डालो");
+    return;
+  }
+
+  let day = parseInt(dob.split("-")[2]);
+  let mulank = day % 9;
+  if (mulank === 0) mulank = 9;
+
+  let data = numerologyData[mulank];
+  if (!data) {
+    alert("Is Mulank ka data nahi hai");
+    return;
+  }
+
+  document.getElementById("mulank").innerText = mulank;
+  document.getElementById("bhagyank").innerText = mulank;
+
+  document.getElementById("avoid").innerText = data.avoid;
+  document.getElementById("color").innerText = data.color;
+  document.getElementById("dates").innerText = data.dates;
+  document.getElementById("years").innerText = data.years;
+  document.getElementById("success").innerText = data.success;
+  document.getElementById("rudraksh").innerText = data.rudraksh;
+  document.getElementById("bracelet").innerText = data.bracelet;
+  document.getElementById("yantra").innerText = data.yantra;
+  document.getElementById("mantra").innerText = data.mantra;
+
+  document.getElementById("result").style.display = "block";
+}
 </script>
